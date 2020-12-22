@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="miApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolates</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-controller="miControlador">
+    <header>
+
+        <div id="header">
+            <img src="img/guredendak.jpg">
+            <h2>CHOCOLATES ARTESANOS</h2>
+        </div>
+
+        <nav>
+            <a target="" ng-click="mostrarProductos()" href="#">VER PRODUCTOS</a>
+            <a target="" ng-click="insertProducto()" href="#">INSERTAR NUEVO PRODUCTO</a>
+            <a target="" href="#">BUSCAR</a>
+            <a target="" ng-click="mostrarCarro()" href="#">VER CARRO</a>
+        </nav>
+    </header>
+
+    <div id="carro" ng-show="carro=='si'">
+        <table id="tablaCarro">
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Cuantos compra</th>
+                <th>Total a pagar</th>
+            </tr>
+            <tr ng-repeat="contenido in contenidoCarro">
+                <th>{{contenido.nombre}}</th>
+                <th>{{contenido.tipo}}</th>
+                <th>{{contenido.precio}}</th>
+                <th>{{contenido.unidad}}</th>
+                <th><button ng-click="añadirUnidad()">&nbsp + &nbsp</button> <button ng-click="restarUnidad()">&nbsp - &nbsp</button></th>
+                <th>{{contenido.precio * contenido.unidad}}</th>
+            </tr>
+        </table>
+        <div id="containerBotones">
+
+        <button>Realizar Compra</button>
+        <button ng-click="esconderCarro()">Cancelar Compra</button>
+        <button ng-click="vaciarCarro()">Vaciar Carro</button>
+
+        </div>
+    </div>
+
+    <section ng-show="ver=='si'">
+        <div ng-repeat="producto in lista" class="card">
+            <p><span>Tipo: {{producto.tipo}}</span></p>
+            <img class="productoImagen" src="img/{{producto.foto}}.jpg" />
+            <p>{{producto.nombre}}</p>
+            <p><span>Cantidad: {{producto.cantidad}} unidades</span>
+            <p><span>Precio: {{producto.precio}}€</span></p>
+            <input type="button" value="Add to Cart" ng-click="disminuirStock($index, producto)">
+            <button ng-click="deleteProducto(producto.idProducto)"><img class="funcionalidades"
+                    src="img/eliminar.png"></button>
+            <button ng-click="modificarProducto()"><img class="funcionalidades" src="img/modif.png"></button>
+        </div>
+    </section>
+
+    <div id="insertProducto" ng-show="seccion=='si'">
+        <h2>Nuevo producto</h2>
+        <div>
+            <label for="nombreProducto">Nombre producto:</label><br>
+            <input id="nombreProducto" type="text" ng-model="productoNuevo.nombre">
+        </div>
+
+        <div>
+            <label for="tipo">Tipo:</label><br>
+            <input id="tipo" name="tipo" type="text" ng-model="productoNuevo.tipo">
+        </div>
+
+        <div>
+            <label for="precio">Precio:</label><br>
+            <input id="precio" type="text" ng-model="productoNuevo.cantidad">
+        </div>
+
+        <div>
+            <label for="cantidad">Cantidad:</label><br>
+            <input id="cantidad" type="text" ng-model="productoNuevo.precio">
+        </div>
+
+        <div>
+            <label for="foto">Foto:</label><br>
+            <input id="foto" type="text" ng-model="productoNuevo.foto"disabled>
+        </div>
+
+        <div>
+            <input value="Submit" type="button" ng-click="submitInsert()">
+            <input type="button" value="Cancel" ng-click="cancelar()">
+        </div>
+    </div>
+
+    
+
+    <script src="../lib/angular.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
